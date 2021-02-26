@@ -12,9 +12,8 @@ Route::group(['middleware' => 'auth'], function() {
 
     // 开始 -- 检测邮箱是否验证
     Route::group(['middleware' => 'email_verified'], function() {
-        Route::get('/test', function() {
-            return 'Your email is verified';
-        });
+        //Route::get('/test', function() { return 'Your email is verified';});
+        Route::get('user_addresses', 'UserAddressesController@index')->name('user_addresses.index'); //收货地址列表
     });
     // 结束
 });
