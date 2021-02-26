@@ -60,7 +60,7 @@ class UserAddressesController extends Controller
     public function destroy(UserAddress $user_address){
         $this->authorize('own', $user_address);
         $user_address->delete();
-        // 把之前的 redirect 改成返回空数组
+        // 因为是 ajax 请求,所以把之前的 redirect 改成返回空数组
         return [];
     }
 }
