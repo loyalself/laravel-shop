@@ -10,10 +10,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/email_verification/verify', 'EmailVerificationController@verify')->name('email_verification.verify'); //邮箱验证
     Route::get('/email_verification/send', 'EmailVerificationController@send')->name('email_verification.send'); //手动发送邮件
 
-    // 开始 -- 检测邮箱是否验证
     Route::group(['middleware' => 'email_verified'], function() {
         //Route::get('/test', function() { return 'Your email is verified';});
-        Route::get('user_addresses', 'UserAddressesController@index')->name('user_addresses.index'); //收货地址列表
+        Route::get('user_addresses', 'UserAddressesController@index')->name('user_addresses.index'); //收货地址列表页面
+        Route::get('user_addresses/create', 'UserAddressesController@create')->name('user_addresses.create'); //新建收货地址页面
+        Route::post('user_addresses', 'UserAddressesController@store')->name('user_addresses.store'); //新建收货地址
+
     });
-    // 结束
 });
