@@ -15,6 +15,8 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('user_addresses', 'UserAddressesController@index')->name('user_addresses.index'); //收货地址列表页面
         Route::get('user_addresses/create', 'UserAddressesController@create')->name('user_addresses.create'); //新建收货地址页面
         Route::post('user_addresses', 'UserAddressesController@store')->name('user_addresses.store'); //新建收货地址
-
+        Route::get('user_addresses/{user_address}', 'UserAddressesController@edit')->name('user_addresses.edit'); //编辑收货地址页面
+        Route::put('user_addresses/{user_address}', 'UserAddressesController@update')->name('user_addresses.update'); //编辑收货地址逻辑
+        Route::delete('user_addresses/{user_address}', 'UserAddressesController@destroy')->name('user_addresses.destroy'); //删除收货地址
     });
 });
