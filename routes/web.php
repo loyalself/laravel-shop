@@ -6,6 +6,8 @@ Auth::routes();
 
 Route::redirect('/', '/products')->name('root');
 Route::get('products', 'ProductsController@index')->name('products.index'); //首页
+Route::get('products/{product}', 'ProductsController@show')->name('products.show'); //商品详情页
+
 
 Route::group(['middleware' => 'auth'], function() {
     //需要把这个路由放在 auth 这个中间件的路由组里面，因为只有已经登录的用户才能看到这个提示界面
