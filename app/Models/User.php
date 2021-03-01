@@ -21,7 +21,15 @@ class User extends Authenticatable
         'email_verified' => 'boolean',
     ];
 
+    //一对多,一个用户可以拥有多个地址
     public function addresses(){
         return $this->hasMany(UserAddress::class);
+    }
+
+    //多对多
+    public function favoriteProducts(){
+        return $this->belongsToMany(Product::class, 'user_favorite_products')
+                    ->withTimestamps()
+                    ->orderBy('user_favorite_products.created_at', 'desc');
     }
 }
