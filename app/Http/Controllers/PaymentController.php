@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OrderPaid;
 use App\Exceptions\InvalidRequestException;
 use App\Models\Order;
 use Carbon\Carbon;
@@ -54,6 +55,9 @@ class PaymentController extends Controller
         }
         // 如果这笔订单的状态已经是已支付
         if ($order->paid_at) {
+            //支付成功后的事件
+            $this->afterPaid($order);
+
             // 返回数据给支付宝
             return app('alipay')->success();
         }
@@ -65,5 +69,10 @@ class PaymentController extends Controller
         ]);
 
         return app('alipay')->success();
+    }
+
+
+    protected function afterPaid(Order $order){
+        event(new OrderPaid($order));
     }
 }
