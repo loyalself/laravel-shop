@@ -28,7 +28,6 @@ class ProductSku extends Model
 
     /**
      * 加库存
-     *
      */
     public function addStock($amount){
         if ($amount < 0) throw new InternalException('加库存不可小于0');

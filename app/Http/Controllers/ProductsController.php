@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\InvalidRequestException;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
+
+    public function ss(){
+        return OrderItem::with('order')->get();
+    }
+
+
     //商品首页
     public function index(Request $request){
         // 创建一个查询构造器

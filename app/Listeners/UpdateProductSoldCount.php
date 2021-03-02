@@ -2,7 +2,6 @@
 namespace App\Listeners;
 use App\Events\OrderPaid;
 use App\Models\OrderItem;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 //orderPaid 事件的监听器
 class UpdateProductSoldCount implements ShouldQueue //代表异步执行
