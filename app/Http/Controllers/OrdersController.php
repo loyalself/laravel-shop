@@ -28,7 +28,16 @@ class OrdersController extends Controller
     }
 
     public function store(OrderRequest $request, CartService $cartService,OrderService $orderService){
+        /**
+         * dd($request->input('items')) =>
+         *  [
+         *   [  "sku_id" => 12
+                "amount" => "1"
+         *   ]
+         * ]
+         */
         $user  = $request->user();
+        //dd($user);
         $address = UserAddress::query()->find($request->input('address_id'));
         // 开启一个数据库事务
         $order = DB::transaction(function () use ($user, $request, $address,$cartService) {
@@ -47,7 +56,6 @@ class OrdersController extends Controller
             ]);
             // 订单关联到当前用户
             $order->user()->associate($user);
-
             // 写入数据库
             $order->save();
 
@@ -57,7 +65,7 @@ class OrdersController extends Controller
             //遍历用户提交的 SKU
             foreach ($items as $data) {
                 $sku  = ProductSku::query()->find($data['sku_id']);
-                // 创建一个 OrderItem 并直接与当前订单关联
+                // 创建一个 OrderItem 并直接与当前订单关联,使用 make 方法: 会新建一个关联关系的对象（也就是 OrderItem）但不保存到数据库
                 $item = $order->items()->make([
                     'amount' => $data['amount'],
                     'price'  => $sku->price,
