@@ -36,3 +36,11 @@ Route::group(['middleware' => 'auth'], function() {
 
 //移到这里为了解决与 用户收藏列表路由冲突
 Route::get('products/{product}', 'ProductsController@show')->name('products.show'); //商品详情页
+
+Route::get('alipay', function() {
+    return app('alipay')->web([
+        'out_trade_no' => time(),
+        'total_amount' => '1',
+        'subject' => 'test subject - 测试',
+    ]);
+});
